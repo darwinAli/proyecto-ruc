@@ -1,0 +1,37 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Resultado</title>
+        </head>
+        <body>
+            <h1>Consulta de RUC</h1>
+            <input type="text" id="rucInput" placeholder="Ingrese un RUC">
+            <button id="fetchButton">Consultar</button>
+            <div id="resultContainer"></div>
+            
+            <script>
+          document.getElementById('fetchButton').addEventListener('click', async () => {
+            const numRuc = document.getElementById('rucInput').value;
+            if (!numRuc) {
+                alert("Por favor ingrese un RUC válido.");
+                return;
+            }
+
+            const response = await fetch(`/scrape?numRuc=${numRuc}`);
+            const result = await response.json();
+
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar nuevo contenido
+            for (const key in result) {
+                resultContainer.innerHTML += `<p><strong>${key}:</strong> ${result[key]}</p>`;
+            }
+        });
+             
+           </script>
+            
+        </body>
+        </html> 
+    
